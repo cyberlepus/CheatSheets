@@ -58,7 +58,31 @@
     staff.Id = 1
 
 ```
+## 配列
+変数に() をつけると配列。配列の添え字は0以外でも可。
+宣言時の個数指定+1=要素数になるので注意が必要。
+```VBA
+	' 宣言時に要素数の最初を1にする
+	' Option Base 1
 
+	' 宣言
+	Dim  intArray()  As Integer			' 数が未定。後でReDimで個数を設定する
+	Dim  intArray(9)  As Integer		' 0～9  の10個の要素
+	Dim  intArray(1 To 10)  As Integer	' 1～10 の10個の要素
+	Dim  intArray(9, 9)  As Integer		' 0～9の10個 x 0～9の10個、の2次元配列
+
+	ReDim  intArray(100)				' 内容を初期化して要素数を変更する。
+	ReDim  Preserve intArray(100)		' 内容を保持して要素数を変更する。
+
+	UBound(intArray) 
+	LBound(intArray) 
+
+	' Foreach をする場合
+	Dim  intItem  As  Integer
+	For Each  intItem  In  intArray
+	' For をする場合
+	For  i = LBound(intArray)  To  UBound(intArray) 
+```
 ## 演算子
 ```VBA
     =, <>, >=, <= >, <      ' 比較演算子(等しい, 等くない, 以上、以下、大きい、小さい)
@@ -117,4 +141,19 @@ Function～End  と Sub～End Sub の2通りがある。
 ```
 
 
+	ThisWorkbook.Path はExcelファイルのあるディレクトリを指す
+```VBA
+    ' カレントディレクトリを実行ファイルのあるパスにする
+    CreateObject("WScript.Shell").CurrentDirectory = ThisWorkbook.Path
+```
 
+### パス操作
+FileSystemObject を使う。[ツール]メニュー > [参照設定] > [Microsoft Scripting Runtime] をチェック
+```VBA
+Dim fso As FileSystemObject
+Set fso = New FileSystemObject
+
+	fso.BuildPath(ThisWorkbook.Path, "test.txt")
+'後始末
+Set fso = Nothing
+```
