@@ -1,0 +1,27 @@
+Linuxメモ
+
+--------------------------------------------------------------------------------
+	ネットワーク設定
+--------------------------------------------------------------------------------
+https://www.infraeye.com/study/linuxz52.html
+
+■ホスト名の設定ファイル
+・Debian系	:/etc/hostname
+・Red Hat系	:/etc/sysconfig/network
+
+・例
+	>　NETWORKING=yes
+	>　HOSTNAME=localhost.localdomain
+
+■ホスト名とIPアドレスの対応
+
+・通常は DNSで設定
+・ローカルで	/etc/hostsファイルで設定
+
+■DNSサーバ、ドメイン名の設定
+・/etc/resolv.confで行う
+	・see:https://qiita.com/kasei-san/items/137b7fc86a0eacd60765
+・例
+	>  domain infraeye.com
+	>　search　infraeye.com
+	>　nameserver 　192.168.231.2
