@@ -1,0 +1,37 @@
+--------------------------------------------------------------------------------
+	Perforce のコマンドライン操作について
+--------------------------------------------------------------------------------
+p4vをインストールすると、コマンドライン操作用の p4 コマンドが同時にインストールされる。
+
+英語版　：https://www.perforce.com/manuals/v19.2/cmdref/Content/CmdRef/Home-cmdref.html
+日本語版：https://www.toyo.co.jp/files/user/img/product/ss/help/perforce/r19.1/manuals/cmdref/Content/CmdRef/Home-cmdref.html
+※
+
+基本的にサーバーに対して操作を行うので、先に login が必要。
+サーバーセキュリティの指定で、チケットによる認証している場合は
+一定期間ログイン操作が必要なくなるので、
+プログラムを組む場合はlogout した状態で動作確認をする必要がある、
+
+■login していない状態で可能な操作
+> p4 info 
+ホストPC側の設定状態を確認するコマンド
+
+> p4 tickets
+	認証されている ticket を表示する。
+
+> p4 login
+login状態で情報を判定
+loginしていてもlogin発行可能。そして判定も可能。クライアントのエラーは検出できない・
+
+■login について
+・サーバーのセキュリティレベルによってパスワードの指定が(グローバルオプション、環境変数、共に)が
+　無視される状態になる。この場合、直接入力する方法しかない。
+　コマンドライン場合、標準入力で受け付ける。
+　当然ログイン時にパスワードが必要になるが、グローバルオプションと環境変数は無効とされているため、標準入力から入力する必要がある。
+　セキュリティ的に問題はあるが、バッチで処理する場合は以下のようにするとログインを自動化できる。
+　> echo {Password} | p4 login -p {Server:Port} -u {UserName} -c {ClientName}
+
+認証されれば
+changelists -> エラーにならない
+> p4 -p apk-p4p:1666 -u k_usami -c cc2_k_usami_APKxx changelists -c cc2_k_usami_APxxK -m 1
+> p4 -p apk-p4p:1666 clients -u k_usami -e cc2_k_usami_APK && echo OK
