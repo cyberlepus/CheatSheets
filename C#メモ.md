@@ -149,3 +149,35 @@ https://qiita.com/kob58im/items/a5cb6cc89ad2e4ebdf27
     Enum 列挙
 ----------------------------------------------------------------
 https://scrapbox.io/DevelopmentTips/%E3%80%90C%23%E3%80%91enum%E3%81%AE%E5%85%A8%E8%A6%81%E7%B4%A0%E3%81%A7%E3%83%AB%E3%83%BC%E3%83%97%E3%81%99%E3%82%8B
+
+
+
+連想配列
+----------------------------------------------------------------
+Dictionary<>
+
+あれば上書き、無ければ追加
+
+- 設定
+  1) あれば設定、無ければ項目を追加
+  ```C#
+  dic[key] = value;
+  ```
+  2) あれば無視、無ければ項目を追加
+  ```C#
+  result = dic.TryAdd(key, value);
+  ```
+
+- 取得
+  1) あれば取得、無ければ項目を追加して取得
+  ```C#
+  T value;
+  if( dic.TryGetValue(key, out value) == false ) { value = new T(); }
+  ```
+  2) あれば取得、無ければnullを返す
+  ```C#
+  T value;
+  dic.TryGetValue(key, out value);
+  ```
+
+
